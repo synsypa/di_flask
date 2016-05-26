@@ -2,14 +2,32 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Hello, World!</title>
+		<title>Pre-program Stock Project</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<!--<link rel=stylesheet type=text/css href='/static/style.css'>-->
 	</head>
 	<body>
-		<div>
-  			<h1>Hello, World!</h1>
+		<div class=page>
+  			<h1>Select a Stock</h1>
+			<div class=metanav>
+
+			<h4>Enter a Stock Ticker Symbol (i.e. AAPL) and features to observe.</h4>
+
+			<form id='input' method='post' action='index'>
+				<p>
+					Symbol: <input type='text' name='ticker' />
+				</p>
+				<p>
+					<input type="checkbox" name='features' value='Open'> Open Price <br>
+					<input type="checkbox" name='features' value='AdjOpen'> Adjusted Open Price <br>
+					<input type="checkbox" name='features' value='Close'> Close Price <br>
+					<input type="checkbox" name='features' value='AdjClose'> Adjusted Close Proce <br>
+				<input type="submit" value="Submit">
+				</p>
+				</form>
+			</div>
 		</div>
 	</body>
 </html>
