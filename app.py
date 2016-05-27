@@ -26,23 +26,23 @@ def index():
 
     return render_template('graph.html')
 
-@app.route('/graph', methods=['POST'])
-def graph():
-  api_url = 'https://www.quandl.com/api/v1/datasets/WIKI/%s.json' % ticker
-  session = requests.Session()
-  session.mount('http://', requests.adapters.HTTPAdapter(max_retries=3))
-  raw_data = session.get(api.url)
+#@app.route('/graph', methods=['POST'])
+#def graph():
+#  api_url = 'https://www.quandl.com/api/v1/datasets/WIKI/%s.json' % ticker
+#  session = requests.Session()
+#  session.mount('http://', requests.adapters.HTTPAdapter(max_retries=3))
+#  raw_data = session.get(api.url)
 
-  cols = raw_data.json()[u'column_names']
-  data = raw_data.json()[u'data']
-  df = pd.DataFrame(data)
-  df.columns = cols
-  df['Date'] = pd.to_datetime(df['Date'])
+#  cols = raw_data.json()[u'column_names']
+#  data = raw_data.json()[u'data']
+#  df = pd.DataFrame(data)
+#  df.columns = cols
+#  df['Date'] = pd.to_datetime(df['Date'])
 
-  p = figure(tools=TOOLS, title='Data from Quandl WIKI set',
- 		x_axis_label='date', x_axis_type='datetime')
+#  p = figure(tools=TOOLS, title='Data from Quandl WIKI set',
+# 		x_axis_label='date', x_axis_type='datetime')
 
-  script, div = components(plot)
+#  script, div = components(plot)
 
   return render_template('graph.html', script=script, div=div)
 
