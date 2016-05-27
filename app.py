@@ -38,7 +38,7 @@ def index():
 
     p.line(df['Date'], df['Open'], color='#A6CEE3', legend=ticker + ": " + feature)
 
-    script, div = components(plot)
+    script, div = components(p)
     return render_template('graph.html', script=script, div=div)
 
 if __name__ == '__main__':
