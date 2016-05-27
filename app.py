@@ -36,11 +36,11 @@ def index():
     p = figure(tools=TOOLS, title='Data from Quandl WIKI set',
  		x_axis_label='date', x_axis_type='datetime')
 
-    p.line(df['Date'], df['Open'], color='#A6CEE3', legend=ticker + ": " + feature)
+    p.line(df['Date'], df['Open'], legend=ticker + ": " + feature)
 
     script, div = components(p)
     return render_template('graph.html', script=script, div=div)
 
 if __name__ == '__main__':
-  app.run(port=33507)
-
+#  app.run(port=33507)
+  app.run(host='0.0.0.0')
