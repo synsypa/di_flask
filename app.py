@@ -22,29 +22,24 @@ def index():
     ticker = request.form['ticker'].upper()
     features = request.form['features']
 
-    return render_template('graph.html')
+    api_url = 'https://www.quandl.com/api/v1/datasets/WIKI/%s.json' % ticker
+    session = requests.Session()
+    session.mount('http://', requests.adapters.HTTPAdapter(max_retries=3))
+    raw_data = session.get(api.url)
 
-@app.route('/graph', methods=['POST'])
-def graph():
-  api_url = 'https://www.quandl.com/api/v1/datasets/WIKI/%s.json' % ticker
-  session = requests.Session()
-  session.mount('http://', requests.adapters.HTTPAdapter(max_retries=3))
-  raw_data = session.get(api.url)
+    cols = raw_data.json()[u'column_names']
+    data = raw_data.json()[u'data']
+    df = pd.DataFrame(data)
+    df.columns = cols
+    df['Date'] = pd.to_datetime(df['Date'])
 
-  cols = raw_data.json()[u'column_names']
-  data = raw_data.json()[u'data']
-  df = pd.DataFrame(data)
-  df.columns = cols
-  df['Date'] = pd.to_datetime(df['Date'])
-
-  p = figure(tools=TOOLS, title='Data from Quandl WIKI set',
+    p = figure(tools=TOOLS, title='Data from Quandl WIKI set',
  		x_axis_label='date', x_axis_type='datetime')
 
-  p.line(df['Date'], df['Open'], color='#A6CEE3', legend=ticker + ": " + feature)
+    p.line(df['Date'], df['Open'], color='#A6CEE3', legend=ticker + ": " + feature)
 
-  script, div = components(plot)
-
-  return render_template('graph.html', script=script, div=div)
+    script, div = components(plot)
+    return render_template('graph.html', script=script, div=div)
 
 if __name__ == '__main__':
   app.run(port=33507)
